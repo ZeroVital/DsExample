@@ -498,16 +498,16 @@ gst_dsexample_transform_ip (GstBaseTransform * btrans, GstBuffer * inbuf)
 //  output = DsExampleProcess(dsexample->dsexamplelib_ctx, (unsigned char *)surface->surfaceList[0].mappedAddr.addr[0]);
 //  free (output);
 
+  // Processing Test - ARA
     dsexample->gpumat = new cv::cuda::GpuMat(dsexample->processing_height, dsexample->processing_width,
                         CV_8UC3, surface->surfaceList[0].dataPtr, dsexample->processing_width * RGB_BYTES_PER_PIXEL);
 
     //Memset the memory
     NvBufSurfaceMemSet (dsexample->inter_buf, 0, 0, 0);
 
-//    dsexample->rot_gpumat = new cv::cuda::GpuMat(dsexample->processing_height, dsexample->processing_width,
-//                        CV_8UC3, dsexample->inter_buf->surfaceList[0].mappedAddr.addr[0], dsexample->processing_width * RGB_BYTES_PER_PIXEL);
-    dsexample->rot_gpumat = new cv::cuda::GpuMat(dsexample->processing_height * dsexample->processing_width * RGB_BYTES_PER_PIXEL);
-  // Processing Test - ARA
+    dsexample->rot_gpumat = new cv::cuda::GpuMat(dsexample->processing_height, dsexample->processing_width,
+                        CV_8UC3, dsexample->inter_buf->surfaceList[0].dataPtr, dsexample->processing_width * RGB_BYTES_PER_PIXEL);
+
   dsexample->pt_rot = new cv::Point2f(dsexample->processing_height/2., dsexample->processing_width/2.);
 
   dsexample->rot_mat = new cv::Mat(2, 3, CV_64F);
